@@ -1,5 +1,4 @@
 var Calculator = function() {
-
     // Helper variable declarations
     var self = this,
         decimalMark = ".",
