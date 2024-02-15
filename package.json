@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "sonarqube-scanner": "^3.3.0"
+    "sonarqube-scanner": "^3.3.0",
+    "webpack": "^5.90.2"
   }
 }
