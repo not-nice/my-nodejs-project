@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+
+<body>
+    <h1>Calculator</h1>
+    <label for="num1">Number 1:</label>
+    <input type="number" id="num1">
+    <label for="num2">Number 2:</label>
+    <input type="number" id="num2">
+    <button onclick="calculate('+')">Add</button>
+    <button onclick="calculate('-')">Subtract</button>
+    <button onclick="calculate('*')">Multiply</button>
+    <button onclick="calculate('/')">Divide</button>
+    <p id="result"></p>
+
+    <script src="C:\Users\asus\OneDrive\Documents\GitHub\my-nodejs-project\calculator\src\main\js\calculator.js"></script>
+    <script>
+        function calculate(operator) {
+            var num1 = parseFloat(document.getElementById("num1").value);
+            var num2 = parseFloat(document.getElementById("num2").value);
+            var result;
+            switch (operator) {
+                case '+':
+                    result = add(num1, num2);
+                    break;
+                case '-':
+                    result = subtract(num1, num2);
+                    break;
+                case '*':
+                    result = multiply(num1, num2);
+                    break;
+                case '/':
+                    result = divide(num1, num2);
+                    break;
+                default:
+                    result = "Invalid operator";
+            }
+            document.getElementById("result").innerText = "Result: " + result;
+        }
+    </script>
+</body>
+
+</html>
