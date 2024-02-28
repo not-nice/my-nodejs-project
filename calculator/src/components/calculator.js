@@ -1,198 +1,112 @@
-var Calculator = function() {
-    // Helper variable declarations
-    var self = this,
-        decimalMark = ".",
-        sum = 0,
-        prevOperator;
+// Calculator component
+class Calculator {
+    constructor() {
+        // Helper variable declarations
+        this.decimalMark = ".";
+        this.sum = 0;
+        this.prevOperator = null;
 
-    // Define default values
-    self.display = ko.observable("0");
-    self.isShowingResult = ko.observable(false);
+        // Define default values
+        this.display = ko.observable("0");
+        this.isShowingResult = ko.observable(false);
+    }
 
     // Callback for each number button
-    self.number = function(item, event) {
+    number(item, event) {
         var button = event.target.innerText || event.target.textContent;
 
         // If a result has been shown, make sure we
         // clear the display before displaying any new numbers
-        if (self.isShowingResult()) {
-            self.clearDisplay();
-            self.isShowingResult(false);
+        if (this.isShowingResult()) {
+            this.clearDisplay();
+            this.isShowingResult(false);
         }
 
         // Make sure we only add one decimal mark
-        if (button == decimalMark && self.display().indexOf(decimalMark) > -1)
+        if (button == this.decimalMark && this.display().indexOf(this.decimalMark) > -1)
             return;
 
         // Make sure that we remove the default 0 shown on the display
         // when the user press the first number button
-        var newValue = (self.display() === "0" && button != decimalMark) ? button : self.display() + button;
+        var newValue = (this.display() === "0" && button != this.decimalMark) ? button : this.display() + button;
         // Update the display
-        self.display(newValue);
-    };
+        this.display(newValue);
+    }
 
     // Callback for each operator button
-    self.operator = function(item, event) {
+    operator(item, event) {
         var button = event.target.innerText || event.target.textContent;
         // Only perform calculation if numbers
         // has been entered since last operator button was pressed
-        if (!self.isShowingResult()) {
+        if (!this.isShowingResult()) {
             // Perform calculation
-            switch (prevOperator) {
+            switch (this.prevOperator) {
                 case "+":
-                    sum = sum + parseFloat(self.display(), 10);
+                    this.sum = this.sum + parseFloat(this.display(), 10);
                     break;
                 case "-":
-                    sum = sum - parseFloat(self.display(), 10);
+                    this.sum = this.sum - parseFloat(this.display(), 10);
                     break;
                 case "x":
-                    sum = sum * parseFloat(self.display(), 10);
+                    this.sum = this.sum * parseFloat(this.display(), 10);
                     break;
                 case "÷":
-                    sum = sum / parseFloat(self.display(), 10);
+                    this.sum = this.sum / parseFloat(this.display(), 10);
                     break;
                 default:
-                    sum = parseFloat(self.display(), 10);
+                    this.sum = parseFloat(this.display(), 10);
             };
         }
 
         // Avoid showing a result until you have at least
         // two terms to perform calculation on
-        if (prevOperator)
-            self.display(sum);
+        if (this.prevOperator)
+            this.display(this.sum);
 
         // Make sure we don't try to calculate with the equal sign
-        prevOperator = (button === "=") ? null : button;
+        this.prevOperator = (button === "=") ? null : button;
         // Always set the calculator into showing result state 
         // after an operator button has been pressed
-        self.isShowingResult(true);
-    };
+        this.isShowingResult(true);
+    }
 
     // Callback for negating a number
-    self.negate = function() {
+    negate() {
         // Disable the negate button when showing a result
-        if (self.isShowingResult() || self.display() === "0")
+        if (this.isShowingResult() || this.display() === "0")
             return;
 
-        var newValue = (self.display().substr(0, 1) === "-") ? self.display().substr(1) : "-" + self.display();
-        self.display(newValue);
-    };
+        var newValue = (this.display().substr(0, 1) === "-") ? this.display().substr(1) : "-" + this.display();
+        this.display(newValue);
+    }
 
     // Callback for each backspace button
-    self.backspace = function(item, event) {
+    backspace(item, event) {
         // Disable backspace if the calculator is shown a result
-        if (self.isShowingResult())
+        if (this.isShowingResult())
             return;
 
         // Remove the last character, and make the display zero when
         // last character is removed
-        if (self.display().length > 1) {
-            self.display(self.display().substr(0, self.display().length - 1));
+        if (this.display().length > 1) {
+            this.display(this.display().substr(0, this.display().length - 1));
         } else {
-            self.clearDisplay();
+            this.clearDisplay();
         }
-    };
+    }
 
     // Clear the entire calculator
-    self.clear = function() {
-        prevOperator = null;
-        self.clearDisplay();
-        sum = 0;
-    };
+    clear() {
+        this.prevOperator = null;
+        this.clearDisplay();
+        this.sum = 0;
+    }
 
     // Clear just the display
-    self.clearDisplay = function() {
-        self.display("0");
-    };
-};
-
-// Apply knockout bindings
-ko.applyBindings(new Calculator());
-
-// Enable keyboard controll
-(function() {
-    // Key codes and their associated calculator buttons
-    var calculatorKeys = {
-        48: "0",
-        49: "1",
-        50: "2",
-        51: "3",
-        52: "4",
-        53: "5",
-        54: "6",
-        55: "7",
-        56: "8",
-        57: "9",
-        96: "0",
-        97: "1",
-        98: "2",
-        99: "3",
-        100: "4",
-        101: "5",
-        102: "6",
-        103: "7",
-        104: "8",
-        105: "9",
-        106: "x",
-        107: "+",
-        109: "-",
-        110: ".",
-        111: "÷",
-        8: "backspace",
-        13: "=",
-        46: "c",
-        67: "c"
-    };
-
-    // Helper function to fire an event on an element
-    function fireEvent(element, event) {
-        if (document.createEvent) {
-            // Dispatch for firefox + others
-            var evt = document.createEvent("HTMLEvents");
-            evt.initEvent(event, true, true);
-            return !element.dispatchEvent(evt);
-        } else {
-            // Dispatch for IE
-            var evt = document.createEventObject();
-            return element.fireEvent('on' + event, evt)
-        }
+    clearDisplay() {
+        this.display("0");
     }
+}
 
-    // Helper functions to add/remove HTML-element classes
-    // as IE didn't support the classList property prior to IE10
-    function hasClass(ele, cls) {
-        return ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
-    }
-
-    function addClass(ele, cls) {
-        if (!hasClass(ele, cls)) ele.className += " " + cls;
-    }
-
-    function removeClass(ele, cls) {
-        if (hasClass(ele, cls)) {
-            var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-            ele.className = ele.className.replace(reg, ' ');
-        }
-    }
-
-    // Callback for every key stroke
-    var keycallback = function(e) {
-        // Check if the key was one of our calculator keys
-        if (e.keyCode in calculatorKeys) {
-            // Get button-element associated with key
-            var element = document.getElementById("calculator-button-" + calculatorKeys[e.keyCode]);
-            // Simulate button click on keystroke
-            addClass(element, "active");
-            setTimeout(function() { removeClass(element, "active"); }, 100);
-            // Fire click event
-            fireEvent(element, "click");
-        }
-    }
-
-    // Attach a keyup-event listener on the document
-    if (document.addEventListener) {
-        document.addEventListener('keyup', keycallback, false);
-    } else if (document.attachEvent) {
-        document.attachEvent('keyup', keycallback);
-    }
-})();
+// Export the Calculator class
+module.exports = Calculator;

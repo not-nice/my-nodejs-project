@@ -1,3 +1,39 @@
+// Custom knockout components
+ko.components.register('calculator-display', {
+    viewModel: { require: 'display' },
+    template: { require: 'text!../components/display.html' }
+});
+
+ko.components.register('number-button', {
+    viewModel: { require: 'number-button' },
+    template: { require: 'text!../components/number-button.html' }
+});
+
+ko.components.register('operator-button', {
+    viewModel: { require: 'operator-button' },
+    template: { require: 'text!../components/operator-button.html' }
+});
+
+ko.components.register('negate-button', {
+    viewModel: { require: 'negate-button' },
+    template: { require: 'text!../components/negate-button.html' }
+});
+
+ko.components.register('backspace-button', {
+    viewModel: { require: 'backspace-button' },
+    template: { require: 'text!../components/backspace-button.html' }
+});
+
+ko.components.register('clear-button', {
+    viewModel: { require: 'clear-button' },
+    template: { require: 'text!../components/clear-button.html' }
+});
+
+ko.components.register('equals-button', {
+    viewModel: { require: 'equals-button' },
+    template: { require: 'text!../components/equals-button.html' }
+});
+
 var Calculator = function() {
     // Helper variable declarations
     var self = this,

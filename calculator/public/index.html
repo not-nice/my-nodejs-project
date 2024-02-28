@@ -5,45 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h1>Calculator</h1>
-    <label for="num1">Number 1:</label>
-    <input type="number" id="num1">
-    <label for="num2">Number 2:</label>
-    <input type="number" id="num2">
-    <button onclick="calculate('+')">Add</button>
-    <button onclick="calculate('-')">Subtract</button>
-    <button onclick="calculate('*')">Multiply</button>
-    <button onclick="calculate('/')">Divide</button>
-    <p id="result"></p>
+    <div id="calculator">
+        <!-- Use calculator-display custom component -->
+        <calculator-display></calculator-display>
+        <div>
+            <!-- Use number-button custom components -->
+            <number-button params='{"number": "1", "clickHandler": number}'></number-button>
+            <number-button params='{"number": "2", "clickHandler": number}'></number-button>
+            <number-button params='{"number": "3", "clickHandler": number}'></number-button>
+            <!-- Use operator-button custom component -->
+            <operator-button params='{"operator": "+", "clickHandler": operator}'></operator-button>
+        </div>
+        <div>
+            <number-button params='{"number": "4", "clickHandler": number}'></number-button>
+            <number-button params='{"number": "5", "clickHandler": number}'></number-button>
+            <number-button params='{"number": "6", "clickHandler": number}'></number-button>
+            <operator-button params='{"operator": "-", "clickHandler": operator}'></operator-button>
+        </div>
+        <div>
+            <number-button params='{"number": "7", "clickHandler": number}'></number-button>
+            <number-button params='{"number": "8", "clickHandler": number}'></number-button>
+            <number-button params='{"number": "9", "clickHandler": number}'></number-button>
+            <operator-button params='{"operator": "*", "clickHandler": operator}'></operator-button>
+        </div>
+        <div>
+            <number-button params='{"number": ".", "clickHandler": number}'></number-button>
+            <number-button params='{"number": "0", "clickHandler": number}'></number-button>
+            <!-- Use negate-button custom component -->
+            <negate-button params='{"clickHandler": negate}'></negate-button>
+            <operator-button params='{"operator": "÷", "clickHandler": operator}'></operator-button>
+        </div>
+        <div>
+            <!-- Use clear-button custom component -->
+            <clear-button params='{"clickHandler": clear}'></clear-button>
+            <!-- Use backspace-button custom component -->
+            <backspace-button params='{"clickHandler": backspace}'></backspace-button>
+            <operator-button params='{"operator": "=", "clickHandler": operator}'></operator-button>
+        </div>
+    </div>
 
-    <script src="C:\Users\asus\OneDrive\Documents\GitHub\my-nodejs-project\calculator\src\main\js\calculator.js"></script>
-    <script>
-        function calculate(operator) {
-            var num1 = parseFloat(document.getElementById("num1").value);
-            var num2 = parseFloat(document.getElementById("num2").value);
-            var result;
-            switch (operator) {
-                case '+':
-                    result = add(num1, num2);
-                    break;
-                case '-':
-                    result = subtract(num1, num2);
-                    break;
-                case '*':
-                    result = multiply(num1, num2);
-                    break;
-                case '/':
-                    result = divide(num1, num2);
-                    break;
-                default:
-                    result = "Invalid operator";
-            }
-            document.getElementById("result").innerText = "Result: " + result;
-        }
-    </script>
+    <!-- Knockout.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js"></script>
+
+    <!-- Your scripts -->
+    <script src="index.js"></script>
+    <!-- Include other JavaScript files for components if needed -->
+    <script src="display.js"></script>
+    <script src="number-button.js"></script>
+    <script src="operator-button.js"></script>
+    <script src="negate-button.js"></script>
+    <script src="backspace-button.js"></script>
+    <script src="clear-button.js"></script>
+    <script src="equals-button.js"></script>
 </body>
 
 </html>
