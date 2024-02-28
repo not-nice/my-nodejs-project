@@ -1,16 +1,12 @@
-// Define Display Component ViewModel
-var Display = function() {
+// display.js
+
+// Define a Display ViewModel
+var DisplayViewModel = function() {
     var self = this;
 
-    self.value = ko.observable("0");
-
-    self.updateValue = function(newValue) {
-        self.value(newValue);
-    };
+    // Observable for the display text
+    self.displayText = ko.observable("0");
 };
 
-// Export Display Component
-ko.components.register('calculator-display', {
-    viewModel: Display,
-    template: '<input type="text" data-bind="value: value" disabled aria-label="Calculator Display">'
-});
+// Apply bindings for the DisplayViewModel
+ko.applyBindings(new DisplayViewModel());

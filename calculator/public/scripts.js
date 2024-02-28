@@ -34,46 +34,35 @@ ko.components.register('equals-button', {
     template: { require: 'text!../components/equals-button.html' }
 });
 
-var Calculator = function() {
-    // Helper variable declarations
+// Services
+var CalculatorService = function() {
     var self = this,
         decimalMark = ".",
         sum = 0,
         prevOperator;
 
-    // Define default values
     self.display = ko.observable("0");
     self.isShowingResult = ko.observable(false);
 
-    // Callback for each number button
     self.number = function(item, event) {
         var button = event.target.innerText || event.target.textContent;
 
-        // If a result has been shown, make sure we
-        // clear the display before displaying any new numbers
         if (self.isShowingResult()) {
             self.clearDisplay();
             self.isShowingResult(false);
         }
 
-        // Make sure we only add one decimal mark
         if (button == decimalMark && self.display().indexOf(decimalMark) > -1)
             return;
 
-        // Make sure that we remove the default 0 shown on the display
-        // when the user press the first number button
         var newValue = (self.display() === "0" && button != decimalMark) ? button : self.display() + button;
-        // Update the display
         self.display(newValue);
     };
 
-    // Callback for each operator button
     self.operator = function(item, event) {
         var button = event.target.innerText || event.target.textContent;
-        // Only perform calculation if numbers
-        // has been entered since last operator button was pressed
+
         if (!self.isShowingResult()) {
-            // Perform calculation
             switch (prevOperator) {
                 case "+":
                     sum = sum + parseFloat(self.display(), 10);
@@ -92,21 +81,14 @@ var Calculator = function() {
             };
         }
 
-        // Avoid showing a result until you have at least
-        // two terms to perform calculation on
         if (prevOperator)
             self.display(sum);
 
-        // Make sure we don't try to calculate with the equal sign
         prevOperator = (button === "=") ? null : button;
-        // Always set the calculator into showing result state 
-        // after an operator button has been pressed
         self.isShowingResult(true);
     };
 
-    // Callback for negating a number
     self.negate = function() {
-        // Disable the negate button when showing a result
         if (self.isShowingResult() || self.display() === "0")
             return;
 
@@ -114,14 +96,10 @@ var Calculator = function() {
         self.display(newValue);
     };
 
-    // Callback for each backspace button
     self.backspace = function(item, event) {
-        // Disable backspace if the calculator is shown a result
         if (self.isShowingResult())
             return;
 
-        // Remove the last character, and make the display zero when
-        // last character is removed
         if (self.display().length > 1) {
             self.display(self.display().substr(0, self.display().length - 1));
         } else {
@@ -129,25 +107,22 @@ var Calculator = function() {
         }
     };
 
-    // Clear the entire calculator
     self.clear = function() {
         prevOperator = null;
         self.clearDisplay();
         sum = 0;
     };
 
-    // Clear just the display
     self.clearDisplay = function() {
         self.display("0");
     };
 };
 
 // Apply knockout bindings
-ko.applyBindings(new Calculator());
+ko.applyBindings(new CalculatorService());
 
-// Enable keyboard control
+// Utilities
 (function() {
-    // Key codes and their associated calculator buttons
     var calculatorKeys = {
         48: "0",
         49: "1",
@@ -180,22 +155,17 @@ ko.applyBindings(new Calculator());
         67: "c"
     };
 
-    // Helper function to fire an event on an element
     function fireEvent(element, event) {
         if (document.createEvent) {
-            // Dispatch for Firefox + others
             var evt = document.createEvent("HTMLEvents");
             evt.initEvent(event, true, true);
             return !element.dispatchEvent(evt);
         } else {
-            // Dispatch for IE
             var evt = document.createEventObject();
             return element.fireEvent('on' + event, evt)
         }
     }
 
-    // Helper functions to add/remove HTML-element classes
-    // as IE didn't support the classList property prior to IE10
     function hasClass(ele, cls) {
         return ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
     }
@@ -211,21 +181,15 @@ ko.applyBindings(new Calculator());
         }
     }
 
-    // Callback for every keystroke
     var keycallback = function(e) {
-        // Check if the key was one of our calculator keys
         if (e.keyCode in calculatorKeys) {
-            // Get button-element associated with key
             var element = document.getElementById("calculator-button-" + calculatorKeys[e.keyCode]);
-            // Simulate button click on keystroke
             addClass(element, "active");
             setTimeout(function() { removeClass(element, "active"); }, 100);
-            // Fire click event
             fireEvent(element, "click");
         }
     }
 
-    // Attach a keyup-event listener on the document
     if (document.addEventListener) {
         document.addEventListener('keyup', keycallback, false);
     } else if (document.attachEvent) {
