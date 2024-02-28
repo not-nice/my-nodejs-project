@@ -109,7 +109,7 @@ var Calculator = function() {
 // Apply knockout bindings
 ko.applyBindings(new Calculator());
 
-// Enable keyboard controll
+// Enable keyboard control
 (function() {
     // Key codes and their associated calculator buttons
     var calculatorKeys = {
@@ -147,7 +147,7 @@ ko.applyBindings(new Calculator());
     // Helper function to fire an event on an element
     function fireEvent(element, event) {
         if (document.createEvent) {
-            // Dispatch for firefox + others
+            // Dispatch for Firefox + others
             var evt = document.createEvent("HTMLEvents");
             evt.initEvent(event, true, true);
             return !element.dispatchEvent(evt);
@@ -175,7 +175,7 @@ ko.applyBindings(new Calculator());
         }
     }
 
-    // Callback for every key stroke
+    // Callback for every keystroke
     var keycallback = function(e) {
         // Check if the key was one of our calculator keys
         if (e.keyCode in calculatorKeys) {
