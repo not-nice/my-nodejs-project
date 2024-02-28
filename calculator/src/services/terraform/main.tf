@@ -9,9 +9,9 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = "ASIARL7AWOA42PTQPI5E"
-  secret_key = "0GXh+LlmayIdkkO6u5J+dGeGTv0nAIHPRbf6J7Iw"
-  token      = "FwoGZXIvYXdzEOL//////////wEaDIylqBwE3DTPE+4NRyLXAbs0QFqhXwUcBA7T/Z/HuhZvT40BPcQc8/8FURw5v2D2XEWpoK3zaBjbdEg3Bz7mfsk0OsRnqXxsCcqpqd83hoFH4LMcTzOedhrGoTdtspfT2gWsVAeyKaeqCOvfJfaor30BwMjYH8FEPAt+OB8bDqW0ut019kitE5Gsr0aAIJGnwlQ/JEJTXGqFgBCWMK2GXDwGjQYT3iyyatxqyhi4qP/Ucb5oFeAY3LCJzETar9jsXZQi7XUc15WqGG9OhFAotqUwUtzELNODLXQ0ZY0hUf7Y8+7Xu1+/KIGEua4GMi26XaTuBlolaLuGET5h66F5CnzKL9yrfEIO9dI0Xuq/99psjhhaAgHqALQQV8w="
+  access_key = "ASIARL7AWOA4WJRO3C7G"
+  secret_key = "aCmKXATcvoGavGbSsjrPfHvc/OTqf/Cceh6roDx3"
+  token      = "FwoGZXIvYXdzEB0aDKhKQm+2CTRTjExZ6iLXAWcSKlEcpmY6VPjgU26fCPzYHGeG5zMeClEipnjODcM5jkt1DdTm0oST5bLd4RB6lsJAmcCFbmR9ZlYEOeISjcwDS6qKCOyn/ESoI+T9QnXfEa+eswB7HKbrM1e7rmJPe4FpiDcbLT/JdYHDNmU28eGy5imH4puTWv67b0iuRzWd4Lw229zUmRLfKgaD4xaKoCqxWR3khZ+eYifURJDEj+vXdbdXoEUwGilvCpBUft2X1myKNg9nhwVw4rcxbKpJ5eZkpHpqtfJyTk8Nijx+DTbEFRiNkjdhKLaM/q4GMi1mTkHC3G9fHQyxXfNye4uBYQMEhLZD3SuhwMMpsEYzp5erv2oCahQauLvg3tU="
 }
 
 # Create the VPC
