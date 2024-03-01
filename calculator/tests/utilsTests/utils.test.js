@@ -1,25 +1,36 @@
-// Import the Utils component
-const Utils = require('../utils/utils');
+const Utils = require('./utils');
 
-// Describe the Utils component
 describe('Utils', () => {
-    // Test case for formatNumber function
-    it('should format number to fixed decimal places', () => {
-        // Call the formatNumber function
-        const result = Utils.formatNumber(3.14159, 2);
+    describe('formatNumber', () => {
+        test('should format number to fixed decimal places', () => {
+            expect(Utils.formatNumber(5.6789, 2)).toBe('5.68');
+        });
 
-        // Check if the result is correct
-        expect(result).toBe('3.14');
+        test('should return string representation of zero if number is zero', () => {
+            expect(Utils.formatNumber(0, 2)).toBe('0.00');
+        });
+
+        // Add more test cases as needed
     });
 
-    // Test case for isNumeric function
-    it('should return true for numeric value', () => {
-        // Call the isNumeric function with a numeric value
-        const result = Utils.isNumeric(10);
+    describe('isNumeric', () => {
+        test('should return true for numeric values', () => {
+            expect(Utils.isNumeric(123)).toBe(true);
+            expect(Utils.isNumeric('123')).toBe(true);
+            expect(Utils.isNumeric(0)).toBe(true);
+            expect(Utils.isNumeric('0')).toBe(true);
+            expect(Utils.isNumeric(1.23)).toBe(true);
+            expect(Utils.isNumeric('1.23')).toBe(true);
+        });
 
-        // Check if the result is correct
-        expect(result).toBe(true);
+        test('should return false for non-numeric values', () => {
+            expect(Utils.isNumeric('abc')).toBe(false);
+            expect(Utils.isNumeric('')).toBe(false);
+            expect(Utils.isNumeric(null)).toBe(false);
+            expect(Utils.isNumeric(undefined)).toBe(false);
+            expect(Utils.isNumeric({})).toBe(false);
+            expect(Utils.isNumeric([])).toBe(false);
+            expect(Utils.isNumeric(NaN)).toBe(false);
+        });
     });
-
-    // Add more test cases as needed
 });

@@ -1,35 +1,34 @@
-// Import the HistoryService component
 const HistoryService = require('./historyService');
 
-// Describe the HistoryService component
 describe('HistoryService', () => {
-    // Test case for adding history
-    it('should add history to the list', () => {
-        // Initialize HistoryService component
-        const historyService = new HistoryService();
-
-        // Add history
-        historyService.addHistory('Calculation 1');
-
-        // Check if history is added
-        expect(historyService.historyList.length).toBe(1);
+    beforeEach(() => {
+        // Clear history before each test
+        HistoryService.clearHistory();
     });
 
-    // Test case for clearing history
-    it('should clear all history', () => {
-        // Initialize HistoryService component
-        const historyService = new HistoryService();
+    describe('addToHistory', () => {
+        test('should add a calculation to history', () => {
+            HistoryService.addToHistory("2 + 3 = 5");
+            expect(HistoryService.history).toEqual(["2 + 3 = 5"]);
+        });
 
-        // Add history
-        historyService.addHistory('Calculation 1');
-        historyService.addHistory('Calculation 2');
-
-        // Clear history
-        historyService.clearHistory();
-
-        // Check if history is cleared
-        expect(historyService.historyList.length).toBe(0);
+        // Add more test cases as needed
     });
 
-    // Add more test cases as needed
+    describe('clearHistory', () => {
+        test('should clear the history', () => {
+            HistoryService.addToHistory("2 + 3 = 5");
+            HistoryService.addToHistory("4 - 2 = 2");
+            HistoryService.clearHistory();
+            expect(HistoryService.history).toEqual([]);
+        });
+    });
+
+    describe('getHistory', () => {
+        test('should return the entire history', () => {
+            HistoryService.addToHistory("2 + 3 = 5");
+            HistoryService.addToHistory("4 - 2 = 2");
+            expect(HistoryService.getHistory()).toEqual(["2 + 3 = 5", "4 - 2 = 2"]);
+        });
+    });
 });

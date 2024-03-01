@@ -1,45 +1,74 @@
-// Import the Calculator component
 const Calculator = require('./calculator');
 
-// Describe the Calculator component
 describe('Calculator', () => {
-    // Test case for number button click
-    it('should add number to display when number button is clicked', () => {
-        // Initialize Calculator component
-        const calculator = new Calculator();
+    let calculator;
 
-        // Mock event object
-        const event = {
-            target: {
-                innerText: '1'
-            }
-        };
-
-        // Trigger number button click
-        calculator.number(null, event);
-
-        // Check if display is updated with the correct number
-        expect(calculator.display()).toBe('1');
+    beforeEach(() => {
+        calculator = new Calculator();
     });
 
-    // Test case for operator button click
-    it('should perform calculation when operator button is clicked', () => {
-        // Initialize Calculator component
-        const calculator = new Calculator();
+    describe('number method', () => {
+        test('should update display with single digit', () => {
+            calculator.number(null, { target: { innerText: '1' } });
+            expect(calculator.display()).toBe('1');
+        });
 
-        // Mock event object
-        const event = {
-            target: {
-                innerText: '+'
-            }
-        };
+        test('should append digit to existing number', () => {
+            calculator.display('12');
+            calculator.number(null, { target: { innerText: '3' } });
+            expect(calculator.display()).toBe('123');
+        });
 
-        // Trigger operator button click
-        calculator.operator(null, event);
-
-        // Check if operator is correctly set
-        expect(calculator.prevOperator).toBe('+');
+        test('should handle decimal mark correctly', () => {
+            calculator.number(null, { target: { innerText: '.' } });
+            expect(calculator.display()).toBe('0.');
+            calculator.number(null, { target: { innerText: '5' } });
+            expect(calculator.display()).toBe('0.5');
+            calculator.number(null, { target: { innerText: '.' } });
+            expect(calculator.display()).toBe('0.5'); // Should not add another decimal mark
+        });
     });
 
-    // Add more test cases as needed
+    describe('operator method', () => {
+        test('should perform addition correctly', () => {
+            calculator.display('10');
+            calculator.operator(null, { target: { innerText: '+' } });
+            calculator.display('5');
+            calculator.operator(null, { target: { innerText: '=' } });
+            expect(calculator.display()).toBe('15');
+        });
+
+        // Add more test cases for other operator methods as needed
+    });
+
+    describe('negate method', () => {
+        test('should negate a positive number', () => {
+            calculator.display('5');
+            calculator.negate();
+            expect(calculator.display()).toBe('-5');
+        });
+
+        test('should negate a negative number', () => {
+            calculator.display('-5');
+            calculator.negate();
+            expect(calculator.display()).toBe('5');
+        });
+
+        test('should not negate zero', () => {
+            calculator.display('0');
+            calculator.negate();
+            expect(calculator.display()).toBe('0');
+        });
+
+        test('should not negate when showing result', () => {
+            calculator.display('10');
+            calculator.operator(null, { target: { innerText: '+' } });
+            calculator.display('5');
+            calculator.operator(null, { target: { innerText: '=' } });
+            calculator.negate();
+            expect(calculator.display()).toBe('15');
+        });
+    });
+
+    // Add more test cases for other methods as needed
 });

@@ -13,8 +13,7 @@
     <div class="calculator demo">
         <div class="u4 display">
             <div class="display-inner">
-                <!-- Edit: data-bind attribute corrected to displayText -->
-                <div class="display-text" data-bind="text: displayText"></div>
+                <div class="display-text" data-bind="text: display"></div>
             </div>
         </div>
         <button id="calculator-button-c" class="u1 button button-red" data-bind="click: clear">c</button>
@@ -36,6 +35,19 @@
         <button id="calculator-button-0" class="u2 button button-gray" data-bind="click: number">0</button>
         <button id="calculator-button-." class="u1 button button-gray" data-bind="click: number">.</button>
         <button id="calculator-button-=" class="u1 button button-blue" data-bind="click: operator">=</button>
+        <button id="calculator-button-scientific-notation" class="u1 button button-gray" data-bind="click: scientificNotation">sci</button>
+        <button id="calculator-button-log-base-10" class="u1 button button-gray" data-bind="click: logBase10">log10</button>
+        <button id="calculator-button-log-base-e" class="u1 button button-gray" data-bind="click: logBaseE">loge</button>
+        <button id="calculator-button-sin" class="u1 button button-gray" data-bind="click: sin">sin</button>
+        <button id="calculator-button-cos" class="u1 button button-gray" data-bind="click: cos">cos</button>
+        <button id="calculator-button-tan" class="u1 button button-gray" data-bind="click: tan">tan</button>
+        <button id="calculator-button-sinh" class="u1 button button-gray" data-bind="click: sinh">sinh</button>
+        <button id="calculator-button-cosh" class="u1 button button-gray" data-bind="click: cosh">cosh</button>
+        <button id="calculator-button-tanh" class="u1 button button-gray" data-bind="click: tanh">tanh</button>
+        <button id="calculator-button-exp" class="u1 button button-gray" data-bind="click: exp">exp</button>
+        <button id="calculator-button-cbrt" class="u1 button button-gray" data-bind="click: cbrt">cbrt</button>
+        <button id="calculator-button-pi" class="u1 button button-gray" data-bind="click: pi">π</button>
+        <button id="calculator-button-e" class="u1 button button-gray" data-bind="click: e">e</button>
     </div>
 
     <script src="knockout-3.5.1.js"></script>

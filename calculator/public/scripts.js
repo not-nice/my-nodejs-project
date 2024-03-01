@@ -116,6 +116,91 @@ var CalculatorService = function() {
     self.clearDisplay = function() {
         self.display("0");
     };
+
+    // Scientific notation
+    self.scientificNotation = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(number.toExponential());
+        self.isShowingResult(true);
+    };
+
+    // Floating-point decimal arithmetic (already implemented)
+
+    // Logarithmic functions
+    self.logBase10 = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.log10(number));
+        self.isShowingResult(true);
+    };
+
+    self.logBaseE = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.log(number));
+        self.isShowingResult(true);
+    };
+
+    // Trigonometric functions
+    self.sin = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.sin(number));
+        self.isShowingResult(true);
+    };
+
+    self.cos = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.cos(number));
+        self.isShowingResult(true);
+    };
+
+    self.tan = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.tan(number));
+        self.isShowingResult(true);
+    };
+
+    // Hyperbolic trigonometric functions
+    self.sinh = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.sinh(number));
+        self.isShowingResult(true);
+    };
+
+    self.cosh = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.cosh(number));
+        self.isShowingResult(true);
+    };
+
+    self.tanh = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.tanh(number));
+        self.isShowingResult(true);
+    };
+
+    // Exponential functions
+    self.exp = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.exp(number));
+        self.isShowingResult(true);
+    };
+
+    // Roots beyond the square root
+    self.cbrt = function() {
+        var number = parseFloat(self.display(), 10);
+        self.display(Math.cbrt(number));
+        self.isShowingResult(true);
+    };
+
+    // Quick access to constants
+    self.pi = function() {
+        self.display(Math.PI);
+        self.isShowingResult(true);
+    };
+
+    self.e = function() {
+        self.display(Math.E);
+        self.isShowingResult(true);
+    };
 };
 
 // Apply knockout bindings

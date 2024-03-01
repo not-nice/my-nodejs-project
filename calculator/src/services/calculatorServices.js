@@ -1,5 +1,4 @@
 // This service handles the core calculator functionality
-
 var CalculatorService = {
     // Function to perform addition
     add: function(a, b) {

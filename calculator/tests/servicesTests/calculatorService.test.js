@@ -1,25 +1,39 @@
-// Import the CalculatorService component
 const CalculatorService = require('./calculatorService');
 
-// Describe the CalculatorService component
 describe('CalculatorService', () => {
-    // Test case for addition
-    it('should add two numbers', () => {
-        // Call the add function with two numbers
-        const result = CalculatorService.add(5, 3);
+    describe('add', () => {
+        test('should add two numbers correctly', () => {
+            expect(CalculatorService.add(2, 3)).toBe(5);
+        });
 
-        // Check if the result is correct
-        expect(result).toBe(8);
+        // Add more test cases as needed
     });
 
-    // Test case for subtraction
-    it('should subtract two numbers', () => {
-        // Call the subtract function with two numbers
-        const result = CalculatorService.subtract(10, 3);
+    describe('subtract', () => {
+        test('should subtract two numbers correctly', () => {
+            expect(CalculatorService.subtract(5, 2)).toBe(3);
+        });
 
-        // Check if the result is correct
-        expect(result).toBe(7);
+        // Add more test cases as needed
     });
 
-    // Add more test cases as needed
+    describe('multiply', () => {
+        test('should multiply two numbers correctly', () => {
+            expect(CalculatorService.multiply(2, 3)).toBe(6);
+        });
+
+        // Add more test cases as needed
+    });
+
+    describe('divide', () => {
+        test('should divide two numbers correctly', () => {
+            expect(CalculatorService.divide(6, 3)).toBe(2);
+        });
+
+        test('should return "Error: Division by zero!" if dividing by zero', () => {
+            expect(CalculatorService.divide(6, 0)).toBe("Error: Division by zero!");
+        });
+
+        // Add more test cases as needed
+    });
 });
